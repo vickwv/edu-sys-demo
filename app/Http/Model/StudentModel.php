@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 
-class Student extends Authenticatable
+class StudentModel extends Authenticatable
 {
     use Notifiable, HasMultiAuthApiTokens;
 

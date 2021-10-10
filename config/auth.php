@@ -75,11 +75,11 @@ return [
     'providers' => [
         'teacher' => [
             'driver' => 'eloquent',
-            'model' => \App\Http\Model\Teacher::class,
+            'model' => \App\Http\Model\TeacherModel::class,
         ],
         'student' => [
             'driver' => 'eloquent',
-            'model' => \App\Http\Model\Student::class,
+            'model' => \App\Http\Model\StudentModel::class,
         ],
 
         // 'users' => [

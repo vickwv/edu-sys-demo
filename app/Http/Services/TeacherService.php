@@ -5,7 +5,7 @@ namespace App\Http\Services;
 
 
 use App\Exceptions\RegisterFailException;
-use App\Http\Model\Teacher;
+use App\Http\Model\TeacherModel;
 
 class TeacherService
 {
@@ -16,7 +16,7 @@ class TeacherService
      * @date: 2021-10-10
      **/
     public function register(array $params) {
-        $teacher = app(Teacher::class);
+        $teacher = app(TeacherModel::class);
         $isExist = $teacher->where('email', $params['email'])->exists();
         if ($isExist) {
             throw new RegisterFailException();

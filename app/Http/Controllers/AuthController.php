@@ -2,35 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\LoginFailException;
 use App\Http\Requests\LoginRequest;
-use App\Http\Model\Authenticator;
+use App\Http\Services\AuthService;
 
 class AuthController extends Controller
 {
+    protected $authService;
 
-    /**
-     * @var Authenticator
-     */
-    private $authenticator;
-
-    public function __construct(Authenticator $authenticator)
+    public function __construct(AuthService $authService)
     {
-        $this->authenticator = $authenticator;
+        $this->authService = $authService;
     }
 
     public function login(LoginRequest $request) {
         $credentials = array_values($request->only('email', 'password', 'provider'));
+        $result = $this->authService->login($credentials);
 
-        if (! $user = $this->authenticator->attempt(...$credentials)) {
-            throw new LoginFailException();
-        }
-
-        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-
-        return $this->success('success', [
-            'token_type' => 'Bearer',
-            'access_token' => $token,
-        ]);
+        return $this->success('success', $result);
     }
 }

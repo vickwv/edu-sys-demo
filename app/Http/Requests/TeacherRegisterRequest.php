@@ -4,7 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+/**
+ * 功能：老师注册
+ *
+ * @author: stevenv
+ * @date: 2021-10-10
+ **/
+class TeacherRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

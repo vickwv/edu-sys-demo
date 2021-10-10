@@ -2,9 +2,14 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * 功能：登陆
+ *
+ * @author: stevenv
+ * @date: 2021-10-10
+ **/
 class LoginRequest extends FormRequest
 {
     /**
