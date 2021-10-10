@@ -38,12 +38,20 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'teacher',
+        ],
+        'api'      => [
+            'driver' => 'passport',
+            'provider' => 'teacher',
+        ],
+        'teacher' => [
+            'driver' => 'passport',
+            'provider' => 'teacher',
         ],
 
-        'api' => [
+        'student' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'student',
         ],
     ],
 
@@ -65,9 +73,13 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'teacher' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => \App\Http\Model\Teacher::class,
+        ],
+        'student' => [
+            'driver' => 'eloquent',
+            'model' => \App\Http\Model\Student::class,
         ],
 
         // 'users' => [

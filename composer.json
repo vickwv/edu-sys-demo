@@ -5,12 +5,13 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
-        "laravel/passport": "4.0.3",
         "laravel/tinker": "~1.0",
-        "paragonie/random_compat": "2.*"
+        "lcobucci/jwt": "3.3.3",
+        "paragonie/random_compat": "2.*",
+        "smartins/passport-multiauth": "~3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
