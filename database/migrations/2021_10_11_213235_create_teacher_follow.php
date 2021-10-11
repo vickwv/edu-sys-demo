@@ -13,12 +13,14 @@ class CreateTeacherFollow extends Migration
      */
     public function up()
     {
-        Schema::create('teacher_follow', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer("teacher_id")->nullable(false)->comment("老师id");
-            $table->integer("student_id")->nullable(false)->comment("学生id");
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('teacher_follow')) {
+            Schema::create('teacher_follow', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer("teacher_id")->nullable(false)->comment("老师id");
+                $table->integer("student_id")->nullable(false)->comment("学生id");
+                $table->timestamps();
+            });
+        }
     }
 
     /**

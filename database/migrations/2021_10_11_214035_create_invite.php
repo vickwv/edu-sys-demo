@@ -13,10 +13,12 @@ class CreateInvite extends Migration
      */
     public function up()
     {
-        Schema::create('invite', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('invite')) {
+            Schema::create('invite', function (Blueprint $table) {
+                $table->increments('id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
