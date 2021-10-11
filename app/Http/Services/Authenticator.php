@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Model;
+namespace App\Http\Services;
 
 use Illuminate\Hashing\BcryptHasher;
 use RuntimeException;

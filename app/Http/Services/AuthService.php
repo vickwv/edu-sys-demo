@@ -4,7 +4,7 @@
 namespace App\Http\Services;
 
 use App\Exceptions\LoginFailException;
-use App\Http\Model\Authenticator;
+use App\Http\Services\Authenticator;
 
 class AuthService
 {
