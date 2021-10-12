@@ -10,7 +10,7 @@
 namespace App\Http\Services;
 
 use App\Exceptions\BusinessException;
-use App\Http\Model\ApplySchoolModel;
+use App\Model\ApplySchoolModel;
 use Illuminate\Support\Facades\Auth;
 
 class ApplySchoolService

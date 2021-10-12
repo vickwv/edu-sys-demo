@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Model;
+namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 
-class TeacherModel extends Authenticatable
+class StudentModel extends Authenticatable
 {
     use Notifiable, HasMultiAuthApiTokens;
-
-    protected $table = 'teacher';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +16,7 @@ class TeacherModel extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'sex', 'age',
+        'name', 'email', 'password',
     ];
 
     /**

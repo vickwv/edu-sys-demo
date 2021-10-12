@@ -6,7 +6,7 @@ namespace App\Http\Services;
 
 use App\Exceptions\BusinessException;
 use App\Exceptions\RegisterFailException;
-use App\Http\Model\TeacherModel;
+use App\Model\TeacherModel;
 
 class TeacherService
 {

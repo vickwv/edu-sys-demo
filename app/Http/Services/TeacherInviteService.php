@@ -7,8 +7,7 @@ use App\Exceptions\BusinessException;
 use App\Http\Constants\GlobalEnum;
 use App\Http\Constants\RedisKeyEnum;
 use App\Http\Constants\RoleEnum;
-use App\Http\Model\TeacherInviteModel;
-use Illuminate\Support\Facades\Mail;
+use App\Model\TeacherInviteModel;
 use Illuminate\Support\Facades\Redis;
 
 /**
