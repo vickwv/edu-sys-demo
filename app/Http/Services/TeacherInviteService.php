@@ -3,8 +3,11 @@
 
 namespace App\Http\Services;
 
+use App\Exceptions\BusinessException;
 use App\Http\Constants\RedisKeyEnum;
+use App\Http\Constants\RoleEnum;
 use App\Http\Model\TeacherInviteModel;
+use App\Http\Model\TeacherModel;
 use Illuminate\Support\Facades\Redis;
 
 class TeacherInviteService
@@ -52,5 +55,38 @@ class TeacherInviteService
             "token" => $token,
             "email" => $email,
         ]);
+    }
+
+    /**
+     * <p>
+     *  激活用户
+     * </p>
+     *
+     * @param string $token
+     * @param string $email
+     * @return array
+     * @throws BusinessException
+     * @author: wangwei
+     * @date: 2021-10-12
+     */
+    public function activation(string $token, string $email) {
+        $key = RedisKeyEnum::TEACHER_INVITE_TOKEN . $email;
+        $originToken = Redis::get($key);
+        if (empty($originToken) || $token != $originToken) {
+            throw new BusinessException("邀请已过期，请重新邀请");
+        }
+
+        $password = str_random(12);
+        TeacherModel::create([
+            'email' => $email,
+            'name' => 'user_' . str_random(10),
+            'role' => RoleEnum::ROLE_TEACHER,
+            'password' => bcrypt($password),
+        ]);
+        Redis::del($key);
+
+        return [
+            'password' => $password,
+        ];
     }
 }
