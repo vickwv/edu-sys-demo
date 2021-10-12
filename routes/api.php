@@ -14,7 +14,11 @@ use Illuminate\Http\Request;
 */
 Route::post('signup', 'TeacherController@register');
 Route::post('login', 'AuthController@login');
+Route::get('teacher_invite/accept', 'TeacherInviteController@accept'); // 接受邀请
 
 Route::middleware('auth:api')->group(function () {
    Route::post('apply_school/create', 'ApplySchoolController@create');
+   Route::group(['prefix' => 'teacher_invite'], function() {
+        Route::get('invite', 'TeacherInviteController@invite'); // 邀请老师
+   });
 });

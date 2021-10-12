@@ -7,13 +7,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * <p>
- *  邀请老师
+ *  接受邀请
  * </p>
  *
  * @author: wangwei
  * @date: 2021-10-12
  */
-class InviteTeacherRequest extends FormRequest
+class AcceptInviteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,16 +33,14 @@ class InviteTeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            "email"    => "required|email|max:32",
+            "token"    => "required|string",
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required'     => '必须填写邮箱',
-            'email.email'        => '邮箱格式错误',
-            'email.max'          => '邮箱太长了',
+            'token.required'     => '邀请链接已经失效',
         ];
     }
 }

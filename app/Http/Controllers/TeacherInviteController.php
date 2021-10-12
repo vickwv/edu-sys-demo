@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AcceptInviteRequest;
 use App\Http\Requests\InviteTeacherRequest;
 use App\Http\Services\TeacherInviteService;
 use Illuminate\Http\JsonResponse;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * <p>
- *  邀请老师 controller
+ *  邀请老师接口
  * </p>
  *
  * @author: wangwei
@@ -20,6 +21,7 @@ class TeacherInviteController extends Controller
 {
     /** @var TeacherInviteService $service */
     protected $service;
+
     public function __construct() {
         $this->service = app(TeacherInviteService::class);
     }
@@ -35,6 +37,13 @@ class TeacherInviteController extends Controller
      * @date: 2021-10-12
      */
     public function invite(InviteTeacherRequest $request) {
-        return $this->success("success", ["url" => $this->service->invite(Auth::id(), $request->email)]);
+        $result = $this->service->invite(Auth::id(), $request->email);
+        return $this->success("success", ["invite_success" => $result]);
+    }
+
+    public function accept(AcceptInviteRequest $request) {
+        $result = $this->service->accept($request->token);
+
+        return $this->success("success", $result);
     }
 }

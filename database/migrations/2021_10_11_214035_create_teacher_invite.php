@@ -17,8 +17,9 @@ class CreateTeacherInvite extends Migration
             Schema::create('teacher_invite', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer("teacher_id")->comment("老师id");
-                $table->string("email", 20)->nullable(false)->default("")->comment("邮箱");
+                $table->string("email", 32)->nullable(false)->default("")->comment("邮箱");
                 $table->tinyInteger("status")->nullable(false)->default(0)->comment("状态:0待接受,1邀请成功,2邀请过期");
+                $table->tinyInteger("is_sent")->nullable(false)->default(0)->comment("是否发送邮件: 1已发送 0未发送");
                 $table->index("teacher_id", "idx_teacher_id");
                 $table->timestamps();
             });

@@ -17,7 +17,7 @@ class CreateTeacher extends Migration
         if (!Schema::hasTable('teacher')) {
             Schema::create('teacher', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string("email", 20)->nullable(false)->default("")->comment("邮箱");
+                $table->string("email", 32)->nullable(false)->default("")->comment("邮箱");
                 $table->string("name", 20)->nullable(false)->default("")->comment("名称");
                 $table->string("password", 100)->nullable(false)->default("")->comment("密码");
                 $table->tinyInteger("role")->default(3)->comment("角色: 1 超级管理员 2 学校管理员 3教师");

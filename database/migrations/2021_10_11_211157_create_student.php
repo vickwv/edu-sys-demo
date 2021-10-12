@@ -17,7 +17,7 @@ class CreateStudent extends Migration
             Schema::create('student', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer("school_id", false)->nullable(false)->comment("学校id");
-                $table->string("email", 20)->nullable(false)->default("")->comment("邮箱");
+                $table->string("email", 32)->nullable(false)->default("")->comment("邮箱");
                 $table->string("name", 20)->nullable(false)->default("")->comment("名称");
                 $table->string("password", 100)->nullable(false)->default("")->comment("密码");
                 $table->char("birthday", 10)->default("")->comment("生日");

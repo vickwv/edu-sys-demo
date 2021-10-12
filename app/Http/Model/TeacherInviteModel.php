@@ -18,7 +18,7 @@ class TeacherInviteModel extends Model
      * @var array
      */
     protected $fillable = [
-        'teacher_id', 'email', 'status'
+        'teacher_id', 'email', 'status', 'is_sent'
     ];
 
     /**
