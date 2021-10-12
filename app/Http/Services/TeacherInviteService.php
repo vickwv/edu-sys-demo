@@ -46,7 +46,7 @@ class TeacherInviteService
 
         $token = uniqid("activate_", true);
         $key = RedisKeyEnum::TEACHER_INVITE_TOKEN . $email;
-        Redis::set($key, $token);
+        Redis::set($key, $token, 30 * 60);
 
         return url("teacher/activation", [
             "token" => $token,
