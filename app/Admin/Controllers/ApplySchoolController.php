@@ -5,6 +5,8 @@ namespace App\Admin\Controllers;
 use App\Http\Constants\ApplySchoolStatusEnum;
 use App\Model\ApplySchoolModel;
 use App\Model\TeacherModel;
+use Encore\Admin\Admin;
+use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -115,11 +117,19 @@ class ApplySchoolController extends AdminController
         //状态：0待审核,1通过,2拒绝
         $form->radio('status', __('状态'))
             ->options(ApplySchoolStatusEnum::getStatsDesc())
-            ->rules('required');
-        $form->text('reason', __('拒绝原因'))->rules('string', [
+            ->rules('required', ['required' => '请选择状态']);
+        $form->text('reason', __('拒绝原因'))->rules('nullable|string', [
             'string' => '请输入字符串'
         ]);
 
+        $saveBeforeStatus = null;
+        $form->saving(function (Form $form) use (&$saveBeforeStatus) {
+            $saveBeforeStatus = $form->status;
+        });
+        $form->saved(function (Form $form) use ($saveBeforeStatus) {
+            if ($saveBeforeStatus != $form->status && $form->status == ApplySchoolStatusEnum::STATUS_PASS) {
+            }
+        });
         return $form;
     }
 }
