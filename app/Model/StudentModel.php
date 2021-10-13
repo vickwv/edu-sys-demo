@@ -10,6 +10,8 @@ class StudentModel extends Authenticatable
 {
     use Notifiable, HasMultiAuthApiTokens;
 
+    protected $table = 'student';
+
     /**
      * The attributes that are mass assignable.
      *
