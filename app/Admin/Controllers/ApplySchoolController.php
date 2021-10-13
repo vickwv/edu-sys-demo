@@ -2,11 +2,10 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Services\AdminUserService;
 use App\Http\Constants\ApplySchoolStatusEnum;
 use App\Model\ApplySchoolModel;
 use App\Model\TeacherModel;
-use Encore\Admin\Admin;
-use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -14,6 +13,8 @@ use Encore\Admin\Show;
 
 class ApplySchoolController extends AdminController
 {
+
+    protected $beforeStatus;
     /**
      * Title for current resource.
      *
@@ -22,15 +23,7 @@ class ApplySchoolController extends AdminController
     protected $title = '申请单(学校)管理';
 
     protected function getTeacherMap() {
-        $schools = TeacherModel::select('id', 'name')->get();
-        $schoolMap = [];
-        if($schools->isNotEmpty()) {
-            $schoolMap = $schools->mapWithKeys(function ($item) {
-                return [$item['id'] => $item['name']];
-            });
-        }
-
-        return $schoolMap;
+        return TeacherModel::all()->pluck('name', 'id')->all();
     }
 
     /**
@@ -42,8 +35,8 @@ class ApplySchoolController extends AdminController
     {
         $grid = new Grid(new ApplySchoolModel);
 
-        $grid->column('id', __('学生id'));
-        $grid->column('teacher_id', __('老师id'));
+        $grid->column('id', __('申请单id'));
+        $grid->column('teacher_id', __('老师id'))->using($this->getTeacherMap());
         $grid->column('school_name', __('学校名称'));
         $grid->column('school_province', __('学校省份'));
         $grid->column('school_city', __('学校城市'));
@@ -67,7 +60,7 @@ class ApplySchoolController extends AdminController
     {
         $show = new Show(ApplySchoolModel::findOrFail($id));
 
-        $show->field('id', __('学生id'));
+        $show->field('id', __('申请单id'));
         $show->field('teacher_id', __('老师id'));
         $show->field('school_name', __('学校名称'));
         $show->field('school_province', __('学校省份'));
@@ -90,10 +83,10 @@ class ApplySchoolController extends AdminController
     protected function form()
     {
         $form = new Form(new ApplySchoolModel);
-
+        $form->display('id', __('申请单id'));
         $form->select('teacher_id', __('老师id'))
             ->options($this->getTeacherMap())
-            ->rules('required', ['required' => '请选择老师']);
+            ->readOnly();
         $form->text('school_name', __('学校名称'))->rules('required|string|max:20', [
             'max' => '最大20个字',
             'required' => '不能为空',
@@ -117,17 +110,18 @@ class ApplySchoolController extends AdminController
         //状态：0待审核,1通过,2拒绝
         $form->radio('status', __('状态'))
             ->options(ApplySchoolStatusEnum::getStatsDesc())
-            ->rules('required', ['required' => '请选择状态']);
+            ->rules('required', ['required' => '请选择状态'])
+            ->value(ApplySchoolStatusEnum::STATUS_PASS)->disable();
         $form->text('reason', __('拒绝原因'))->rules('nullable|string', [
             'string' => '请输入字符串'
         ]);
 
-        $saveBeforeStatus = null;
-        $form->saving(function (Form $form) use (&$saveBeforeStatus) {
-            $saveBeforeStatus = $form->status;
+        $form->saving(function (Form $form) {
+            $this->beforeStatus = $form->model()->status;
         });
-        $form->saved(function (Form $form) use ($saveBeforeStatus) {
-            if ($saveBeforeStatus != $form->status && $form->status == ApplySchoolStatusEnum::STATUS_PASS) {
+        $form->saved(function (Form $form) {
+            if ($this->beforeStatus != $form->status && $form->status == ApplySchoolStatusEnum::STATUS_PASS) {
+                app(AdminUserService::class)->teacherToAdmin($form->teacher_id);
             }
         });
         return $form;
