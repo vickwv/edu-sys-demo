@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\BusinessException;
 use App\Http\Requests\FollowTeacherRequest;
 use App\Http\Services\StudentService;
 use Illuminate\Http\JsonResponse;
@@ -31,6 +32,7 @@ class StudentController extends Controller
      * @date  : 2021-10-14
      * @param FollowTeacherRequest $request
      * @return JsonResponse
+     * @throws BusinessException
      */
     public function followTeacher(FollowTeacherRequest $request) {
         $isSuccess = $this->studentService->followTeacher($request->teacher_id);
