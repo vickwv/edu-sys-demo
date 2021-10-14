@@ -16,21 +16,22 @@ class StudentService
      * @author: stevenv
      * @date  : 2021-10-14
      * @param int $teacherId
+     * @param int $isFollow
+     * @return bool
      * @throws BusinessException
      */
-    public function followTeacher(int $teacherId) {
+    public function followTeacher(int $teacherId, int $isFollow) {
         $teacher = TeacherModel::find($teacherId);
         if (empty($teacher)) {
             throw new BusinessException("您关注的老师不存在");
         }
 
         $student = Auth::user();
-        $isFollow = $student->teachers()->where('teacher_id', $teacherId)->first();
-        if (! empty($isFollow)) {
-            return true;
-        }
-        $student->teachers()->attach($teacherId);
+        $follow = TeacherFollowModel::updateOrCreate([
+            'teacher_id' => $teacherId,
+            'student_id' => $student->id,
+        ], ['is_follow'  => $isFollow]);
 
-        return true;
+        return $follow->is_follow;
     }
 }

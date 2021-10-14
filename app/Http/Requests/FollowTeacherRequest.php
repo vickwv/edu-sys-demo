@@ -31,6 +31,7 @@ class FollowTeacherRequest extends FormRequest
     {
         return [
             'teacher_id' => 'required|integer',
+            'is_follow'  => 'required|integer',
         ];
     }
 
@@ -38,7 +39,9 @@ class FollowTeacherRequest extends FormRequest
     {
         return [
             'teacher_id.required' => '请选择要关注的老师',
-            'teacher_id.integer'  => '好像不知道你要选择哪个老师呢？',
+            'teacher_id.integer'  => '好像不知道你要选择哪个老师呢?',
+            'is_follow.required'  => '你想不想关注呢?',
+            'is_follow.integer'   => '你想不想关注呢?',
         ];
     }
 }

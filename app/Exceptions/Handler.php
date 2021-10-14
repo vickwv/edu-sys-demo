@@ -10,6 +10,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -77,7 +78,14 @@ class Handler extends ExceptionHandler
             app('log')->error("数据库异常:" . $exception->getMessage());
             return response()->json([
                 'code' => -2,
-                'msg'  => "数据库异常",
+                'msg'  => "服务器开了小差",
+            ]);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+                'code' => -2,
+                'msg'  => "请求方式错误",
             ]);
         }
 

@@ -35,7 +35,7 @@ class StudentController extends Controller
      * @throws BusinessException
      */
     public function followTeacher(FollowTeacherRequest $request) {
-        $isSuccess = $this->studentService->followTeacher($request->teacher_id);
-        return $this->success('success', ['isSuccess' => $isSuccess]);
+        $isFollow = $this->studentService->followTeacher($request->teacher_id, $request->is_follow);
+        return $this->success('success', ['is_follow' => $isFollow]);
     }
 }

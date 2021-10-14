@@ -18,6 +18,7 @@ class CreateTeacherFollow extends Migration
                 $table->increments('id');
                 $table->integer("teacher_id")->nullable(false)->comment("老师id");
                 $table->integer("student_id")->nullable(false)->comment("学生id");
+                $table->tinyInteger("is_follow")->default(0)->comment("是否关注:1关注 0不关注");
                 $table->index("student_id", "idx_student_id");
                 $table->unique(['teacher_id', 'student_id', 'uidx_teacher_student']);
                 $table->timestamps();
