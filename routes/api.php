@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,4 +23,5 @@ Route::middleware('auth:teacher')->group(function () {
 
 Route::middleware('auth:student')->group(function () {
     Route::post('student/follow', 'StudentController@followTeacher');
+    Route::post('student/follow_teacher/list', 'StudentController@getFollowTeachers');
 });

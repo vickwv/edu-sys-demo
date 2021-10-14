@@ -38,4 +38,8 @@ class StudentController extends Controller
         $isFollow = $this->studentService->followTeacher($request->teacher_id, $request->is_follow);
         return $this->success('success', ['is_follow' => $isFollow]);
     }
+
+    public function getFollowTeachers() {
+        return $this->success('success', $this->studentService->getFollowTeachers());
+    }
 }

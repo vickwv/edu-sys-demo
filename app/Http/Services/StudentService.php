@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Exceptions\BusinessException;
+use App\Http\Constants\GlobalEnum;
 use App\Model\TeacherFollowModel;
 use App\Model\TeacherModel;
 use Illuminate\Support\Facades\Auth;
@@ -33,5 +34,21 @@ class StudentService
         ], ['is_follow'  => $isFollow]);
 
         return $follow->is_follow;
+    }
+
+    /**
+     * 功能：获取关注的老师
+     *
+     * @author: stevenv
+     * @date: 2021-10-14
+     **/
+    public function getFollowTeachers() {
+        $student = Auth::user();
+        $teachers = $student->teachers()->where('is_follow', GlobalEnum::YES)->get();
+        foreach ($teachers as $teacher) {
+            unset($teacher->created_at, $teacher->created_at, $teacher->pivot, $teacher->email);
+        }
+
+        return $teachers->toArray();
     }
 }
