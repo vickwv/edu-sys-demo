@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
@@ -27,6 +28,11 @@ class StudentModel extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
+
+    public function teachers() : BelongsToMany
+    {
+        return $this->belongsToMany(TeacherModel::class, 'teacher_follow', 'student_id', 'teacher_id');
+    }
 }

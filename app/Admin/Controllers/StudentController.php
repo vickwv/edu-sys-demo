@@ -95,7 +95,7 @@ class StudentController extends AdminController
         $form->number('age', __('年龄'))->default(0);
 
         $form->saving(function (Form $form) {
-            $form->password = bcrypt($form->passwor);
+            $form->password = bcrypt($form->password);
         });
         return $form;
     }

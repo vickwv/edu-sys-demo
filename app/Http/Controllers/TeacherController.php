@@ -7,7 +7,7 @@ use App\Http\Requests\TeacherRegisterRequest;
 use App\Http\Services\TeacherService;
 
 /**
- * 功能：老师相关借口
+ * 功能：老师相关接口
  *
  * @author: stevenv
  * @date: 2021-10-12

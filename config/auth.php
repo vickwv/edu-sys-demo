@@ -40,17 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'teacher',
         ],
-        'api'      => [
-            'driver' => 'passport',
+        'api'     => [
+            'driver'   => 'passport',
             'provider' => 'teacher',
         ],
         'teacher' => [
-            'driver' => 'passport',
+            'driver'   => 'passport',
             'provider' => 'teacher',
         ],
 
         'student' => [
-            'driver' => 'passport',
+            'driver'   => 'passport',
             'provider' => 'student',
         ],
     ],

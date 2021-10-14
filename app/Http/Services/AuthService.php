@@ -26,8 +26,7 @@ class AuthService
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
 
         return [
-            'token_type' => 'Bearer',
-            'access_token' => $token,
+            'access_token' => 'Bearer ' . $token,
         ];
     }
 }
