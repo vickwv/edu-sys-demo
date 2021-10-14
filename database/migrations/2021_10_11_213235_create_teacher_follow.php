@@ -18,8 +18,8 @@ class CreateTeacherFollow extends Migration
                 $table->increments('id');
                 $table->integer("teacher_id")->nullable(false)->comment("老师id");
                 $table->integer("student_id")->nullable(false)->comment("学生id");
-                $table->index("teacher_id", "idx_teacher_id");
                 $table->index("student_id", "idx_student_id");
+                $table->unique(['teacher_id', 'student_id', 'uidx_teacher_student']);
                 $table->timestamps();
             });
         }
