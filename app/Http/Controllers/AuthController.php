@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LineLoginRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Services\AuthService;
+use Illuminate\Http\Request;
+use TyperEJ\LineLogin\Login;
 
 class AuthController extends Controller
 {
+    /** @var AuthService $authService */
     protected $authService;
 
     public function __construct(AuthService $authService)
@@ -15,9 +19,20 @@ class AuthController extends Controller
     }
 
     public function login(LoginRequest $request) {
-        $credentials = array_values($request->only('email', 'password', 'provider'));
-        $result = $this->authService->login($credentials);
+        $result = $this->authService->login($request);
 
         return $this->success('success', $result);
+    }
+
+    /**
+     * 功能：line Callback
+     *
+     * @author: stevenv
+     * @date  : 2021-10-14
+     * @param LineLoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lineCallback(LineLoginRequest $request) {
+        return $this->success('success', ['success' => $this->authService->lineCallback($request)]);
     }
 }

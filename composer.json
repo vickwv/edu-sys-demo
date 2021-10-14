@@ -13,7 +13,8 @@
         "lcobucci/jwt": "3.3.3",
         "paragonie/random_compat": "2.*",
         "predis/predis": "^1.1",
-        "smartins/passport-multiauth": "~3.0"
+        "smartins/passport-multiauth": "~3.0",
+        "typerej/line-login": "dev-master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

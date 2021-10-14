@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2aa9bd70f89c2c1bc98dd9f99ffa3d98",
+    "content-hash": "1d0026d3a9a68e5eec75bb695d9f4cd1",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -5121,6 +5121,49 @@
             "time": "2020-07-13T06:12:54+00:00"
         },
         {
+            "name": "typerej/line-login",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TyperEJ/LineLogin.git",
+                "reference": "c3b91f883ea2e7600671f56e13f165475b9d6e3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TyperEJ/LineLogin/zipball/c3b91f883ea2e7600671f56e13f165475b9d6e3c",
+                "reference": "c3b91f883ea2e7600671f56e13f165475b9d6e3c",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TyperEJ\\LineLogin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "line-login",
+            "support": {
+                "issues": "https://github.com/TyperEJ/LineLogin/issues",
+                "source": "https://github.com/TyperEJ/LineLogin/tree/master"
+            },
+            "time": "2019-11-13T05:41:26+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.6.8",
             "source": {
@@ -7269,7 +7312,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "typerej/line-login": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

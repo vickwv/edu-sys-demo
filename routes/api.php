@@ -13,6 +13,7 @@
 Route::post('signup', 'TeacherController@register');
 Route::post('login', 'AuthController@login');
 Route::get('teacher_invite/accept', 'TeacherInviteController@accept'); // 接受邀请
+Route::get('line/callback', 'AuthController@callback');
 
 Route::middleware('auth:teacher')->group(function () {
    Route::post('apply_school/create', 'ApplySchoolController@create');
