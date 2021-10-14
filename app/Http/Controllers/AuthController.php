@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LineLoginRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Services\AuthService;
-use Illuminate\Http\Request;
-use TyperEJ\LineLogin\Login;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
@@ -30,7 +29,7 @@ class AuthController extends Controller
      * @author: stevenv
      * @date  : 2021-10-14
      * @param LineLoginRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function lineCallback(LineLoginRequest $request) {
         return $this->success('success', ['success' => $this->authService->lineCallback($request)]);
