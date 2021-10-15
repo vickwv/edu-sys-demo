@@ -40,9 +40,10 @@ class AuthService
         $login = new Login(env('CHANNEL_ID'));
 
         $redirectUrl = url("api/line/callback") . '?' . http_build_query([
-            'id' => $user->id,
-            'provider' => $request->provider,
-        ]);
+                'id' => $user->id,
+                'provider' => $request->provider,
+                'state' => str_random(9),
+            ]);
         return [
             'access_token' => 'Bearer ' . $token,
             'lineLoginUrl' => $login->generateLoginUrl(['redirect_uri' => $redirectUrl]),
