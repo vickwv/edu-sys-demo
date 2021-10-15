@@ -12,6 +12,7 @@ use function foo\func;
 
 class StudentController extends AdminController
 {
+
     /**
      * Title for current resource.
      *
@@ -19,10 +20,11 @@ class StudentController extends AdminController
      */
     protected $title = '学生管理';
 
-    protected function getSchoolMap() {
+    protected function getSchoolMap()
+    {
         $schools = SchoolModel::select('id', 'name')->get();
         $schoolMap = [];
-        if($schools->isNotEmpty()) {
+        if ($schools->isNotEmpty()) {
             $schoolMap = $schools->mapWithKeys(function ($item) {
                 return [$item['id'] => $item['name']];
             });
@@ -45,8 +47,9 @@ class StudentController extends AdminController
         $grid->column('email', __('邮箱'));
         $grid->column('name', __('名称'));
         $grid->column('line_id', __('LineID'));
-        $grid->column('sex', __('性别'))->using([1 => '男', 2=> '女']);
+        $grid->column('sex', __('性别'))->using([1 => '男', 2 => '女']);
         $grid->column('age', __('年龄'));
+        $grid->column('status', __('状态'))->using([1 => '正常', 0 => '禁用']);
         $grid->column('created_at', __('创建时间'));
         $grid->column('updated_at', __('更新时间'));
 
@@ -68,8 +71,9 @@ class StudentController extends AdminController
         $show->field('email', __('邮箱'));
         $show->field('name', __('名称'));
         $show->field('line_id', __('Line'));
-        $show->field('sex', __('性别'))->using([1 => '男', 2=> '女']);
+        $show->field('sex', __('性别'))->using([1 => '男', 2 => '女']);
         $show->field('age', __('年龄'));
+        $show->field('status', __('状态'))->using([1 => '正常', 0 => '禁用']);
         $show->field('created_at', __('创建时间'));
         $show->field('updated_at', __('更新时间'));
 
@@ -98,14 +102,19 @@ class StudentController extends AdminController
             'required' => '请填写密码',
             'min'      => '密码至少8位',
         ]);
-        $form->radio('sex', __('性别'))->options([1 => '男', 2=> '女'])->default(0)->rules('required|in:1,2', [
+        $form->radio('sex', __('性别'))->options([1 => '男', 2 => '女'])->default(0)->rules('required|in:1,2', [
             'required' => '请选择性别',
+        ]);
+
+        $form->radio('status', __('状态'))->options([1 => '正常', 0 => '禁用'])->default(0)->rules('required|in:1,0', [
+            'required' => '请选择状态',
         ]);
         $form->number('age', __('年龄'))->default(0);
 
         $form->saving(function (Form $form) {
             $form->password = bcrypt($form->password);
         });
+
         return $form;
     }
 }

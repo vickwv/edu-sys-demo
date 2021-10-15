@@ -23,6 +23,7 @@ class CreateStudent extends Migration
                 $table->string("password", 100)->nullable(false)->default("")->comment("密码");
                 $table->tinyInteger("sex")->default(0)->comment("性别:0未知1男2女");
                 $table->tinyInteger("age")->default(0)->comment("年龄");
+                $table->tinyInteger("status")->comment("状态: 1正常,0禁用");
                 $table->index("school_id", "idx_school_id");
                 $table->timestamps();
             });
