@@ -28,7 +28,7 @@ class StudentController extends AdminController
             });
         }
 
-        return $schoolMap;
+        return ! empty($schoolMap) ? $schoolMap->toArray() : [];
     }
 
     /**
@@ -39,7 +39,6 @@ class StudentController extends AdminController
     protected function grid()
     {
         $schoolMap = $this->getSchoolMap();
-        $schoolMap = ! empty($schoolMap) ? $schoolMap->toArray() : [];
         $grid = new Grid(new StudentModel);
         $grid->column('id', __('学生Id'));
         $grid->column('school_id', __('学校'))->using($schoolMap);
@@ -64,7 +63,6 @@ class StudentController extends AdminController
     {
         $show = new Show(StudentModel::findOrFail($id));
         $schoolMap = $this->getSchoolMap();
-        $schoolMap = ! empty($schoolMap) ? $schoolMap->toArray() : [];
         $show->field('id', __('学生Id'));
         $show->field('school_id', __('学校'))->using($schoolMap);
         $show->field('email', __('邮箱'));
