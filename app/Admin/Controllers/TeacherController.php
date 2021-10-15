@@ -52,6 +52,7 @@ class TeacherController extends AdminController
         $show->field('name', __('名称'));
         $show->field('sex', __('性别'));
         $show->field('age', __('年龄'));
+        $show->field('line_id', __('Line'));
         $show->field('created_at', __('创建时间'));
         $show->field('updated_at', __('更新时间'));
 

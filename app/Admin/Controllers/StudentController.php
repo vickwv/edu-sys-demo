@@ -45,6 +45,7 @@ class StudentController extends AdminController
         $grid->column('school_id', __('学校'))->using($schoolMap);
         $grid->column('email', __('邮箱'));
         $grid->column('name', __('名称'));
+        $grid->column('line_id', __('Line'));
         $grid->column('sex', __('性别'))->using([1 => '男', 2=> '女']);
         $grid->column('age', __('年龄'));
         $grid->column('created_at', __('创建时间'));
@@ -62,8 +63,17 @@ class StudentController extends AdminController
     protected function detail($id)
     {
         $show = new Show(StudentModel::findOrFail($id));
-
-
+        $schoolMap = $this->getSchoolMap();
+        $schoolMap = ! empty($schoolMap) ? $schoolMap->toArray() : [];
+        $show->field('id', __('学生Id'));
+        $show->field('school_id', __('学校'))->using($schoolMap);
+        $show->field('email', __('邮箱'));
+        $show->field('name', __('名称'));
+        $show->field('line_id', __('Line'));
+        $show->field('sex', __('性别'))->using([1 => '男', 2=> '女']);
+        $show->field('age', __('年龄'));
+        $show->field('created_at', __('创建时间'));
+        $show->field('updated_at', __('更新时间'));
 
         return $show;
     }
