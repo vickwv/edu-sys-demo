@@ -32,6 +32,6 @@ class AuthController extends Controller
      * @return JsonResponse
      */
     public function lineCallback(LineLoginRequest $request) {
-        return $this->success('success', ['success' => $this->authService->lineCallback($request)]);
+        return $this->success('success', ['is_bind' => $this->authService->lineCallback($request)]);
     }
 }
