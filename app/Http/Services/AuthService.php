@@ -28,7 +28,7 @@ class AuthService
         }
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        $login = new Login(env('CHANNEL_id'));
+        $login = new Login(env('CHANNEL_ID'));
 
         $redirectUrl = url("api/line/callback") . '?' . http_build_query([
             'id' => $user->id,
@@ -48,7 +48,7 @@ class AuthService
      * @param LineLoginRequest $request
      */
     public function lineCallback(LineLoginRequest $request) {
-        $login = new Login(env('CHANNEL_id'), env("CHANNEL_SECRET"));
+        $login = new Login(env('CHANNEL_ID'), env("CHANNEL_SECRET"));
         try {
             $user = $login->requestToken($request->input('code'));
             $userId = $user->getProfile()->userId;
