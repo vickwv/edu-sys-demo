@@ -39,10 +39,10 @@ class AuthService
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
         $login = new Login(env('CHANNEL_ID'));
 
-        $redirectUrl = url("api/line/callback") . '?' . http_build_query([
-                'id' => $user->id,
-                'provider' => $request->provider
-            ]);
+        $redirectUrl = $this->getLineCallback([
+            'id' => $user->id,
+            'provider' => $request->provider
+        ]);
         return [
             'access_token' => 'Bearer ' . $token,
             'lineLoginUrl' => $login->generateLoginUrl([
@@ -52,21 +52,25 @@ class AuthService
         ];
     }
 
+    protected function getLineCallback(array $params) {
+        return url("api/line/callback") . '?' . http_build_query($params);
+    }
+
     /**
      * 功能：line回调
      *
+     * @param LineLoginRequest $request
+     * @return bool
      * @author: stevenv
      * @date  : 2021-10-14
-     * @param LineLoginRequest $request
      */
     public function lineCallback(LineLoginRequest $request) {
         $login = new Login(env('CHANNEL_ID'), env("CHANNEL_SECRET"));
         try {
-            $redirectUrl = url("api/line/callback") . '?' . http_build_query([
-                    'id' => $request->id,
-                    'provider' => $request->provider
-                ]);
-            $user = $login->requestToken($request->input('code'), $redirectUrl);
+            $user = $login->requestToken($request->input('code'), $this->getLineCallback([
+                'id'       => $request->id,
+                'provider' => $request->provider
+            ]));
             $userId = $user->getProfile()->userId;
             if (! empty($userId)) {
                 $model = config('auth.providers.'.$request->provider.'.model');
@@ -79,7 +83,6 @@ class AuthService
             return false;
         } catch (Exception $e) {
             app('log')->error("line 回调失败: " . $e->getMessage());
-            dd($e);
             return false;
         }
     }
