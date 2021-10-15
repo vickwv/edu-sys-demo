@@ -53,6 +53,6 @@ class StudentService
             ];
         }
 
-        return $teachers;
+        return $result;
     }
 }
