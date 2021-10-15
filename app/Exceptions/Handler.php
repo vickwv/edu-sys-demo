@@ -78,7 +78,8 @@ class Handler extends ExceptionHandler
             app('log')->error("数据库异常:" . $exception->getMessage());
             return response()->json([
                 'code' => -2,
-                'msg'  => "服务器开了小差",
+//                'msg'  => "服务器开了小差",
+                'msg'  => $exception->getMessage()
             ]);
         }
 
