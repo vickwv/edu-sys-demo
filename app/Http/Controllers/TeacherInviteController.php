@@ -41,6 +41,14 @@ class TeacherInviteController extends Controller
         return $this->success("success", ["invite_success" => $result]);
     }
 
+    /**
+     * <p>
+     *  接受邀请
+     * </p>
+     *
+     * @author: wangwei
+     * @date: 2021-10-15
+     */
     public function accept(AcceptInviteRequest $request) {
         $result = $this->service->accept($request->token);
 
