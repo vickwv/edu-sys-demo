@@ -36,8 +36,7 @@ class TeacherService
         }
 
         return [
-            'token_type'   => 'Bearer',
-            'access_token' => $teacherModel->createToken("Laravel Password Grant Client")->accessToken,
+            'access_token' => 'Bearer '. $teacherModel->createToken("Laravel Password Grant Client")->accessToken,
         ];
     }
 }
