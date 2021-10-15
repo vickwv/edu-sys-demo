@@ -7,6 +7,7 @@ use App\Exceptions\LoginFailException;
 use App\Http\Requests\LineLoginRequest;
 use App\Http\Requests\LoginRequest;
 use Exception;
+use TyperEJ\LineLogin\Login;
 
 /**
  * <p>
