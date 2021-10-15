@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\BusinessException;
 use App\Exceptions\RegisterFailException;
 use App\Http\Requests\TeacherRegisterRequest;
 use App\Http\Services\TeacherService;
@@ -27,10 +28,10 @@ class TeacherController extends Controller
     /**
      * 功能：注册
      *
+     * @param TeacherRegisterRequest $request
+     * @throws RegisterFailException|BusinessException
      * @author: stevenv
      * @date  : 2021-10-10
-     * @param TeacherRegisterRequest $request
-     * @throws RegisterFailException
      */
     public function register(TeacherRegisterRequest $request) {
         $request->validate();

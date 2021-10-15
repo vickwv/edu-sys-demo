@@ -15,29 +15,29 @@ class TeacherService
     /**
      * 功能：注册逻辑
      *
-     * @author: stevenv
-     * @date  : 2021-10-10
      * @param array $params
      * @return array
-     * @throws RegisterFailException
+     * @throws RegisterFailException|BusinessException
+     * @author: stevenv
+     * @date  : 2021-10-10
      */
     public function registerTeacher(array $params) {
-        $teacher = app(TeacherModel::class);
-        $isExist = $teacher->where('email', $params['email'])->exists();
+        $teacherModel = app(TeacherModel::class);
+        $isExist = $teacherModel->where('email', $params['email'])->exists();
         if ($isExist) {
             throw new BusinessException("该邮箱已经被注册");
         }
 
         $params['password'] = bcrypt($params['password']);
         $params['status'] = GlobalEnum::YES;
-        $teacher = $teacher->create($params);
-        if (empty($teacher)) {
+        $teacherModel = $teacherModel->create($params);
+        if (empty($teacherModel)) {
             throw new RegisterFailException();
         }
 
         return [
             'token_type'   => 'Bearer',
-            'access_token' => $teacher->createToken("Laravel Password Grant Client")->accessToken,
+            'access_token' => $teacherModel->createToken("Laravel Password Grant Client")->accessToken,
         ];
     }
 }
