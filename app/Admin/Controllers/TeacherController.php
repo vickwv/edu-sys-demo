@@ -78,12 +78,13 @@ class TeacherController extends AdminController
         $form->password('password', __('密码'))->rules('required|string', [
             'required' => '请填写密码',
         ]);
-        $form->switch('role', __('Role'))->default(3);
         $form->radio('sex', __('性别'))->options([1 => '男', 2=> '女'])->default(0)->rules('required|in:1,2', [
             'required' => '请选择性别',
         ]);
         $form->number('age', __('年龄'))->default(0);
-
+        $form->saving(function (Form $form) {
+            $form->password = bcrypt($form->password);
+        });
         return $form;
     }
 }

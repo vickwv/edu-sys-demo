@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Services\AdminUserService;
+use App\Admin\Services\ApplySchoolService;
 use App\Http\Constants\ApplySchoolStatusEnum;
 use App\Model\ApplySchoolModel;
 use App\Model\TeacherModel;
@@ -10,6 +10,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 
 class ApplySchoolController extends AdminController
@@ -120,6 +122,7 @@ class ApplySchoolController extends AdminController
             $this->beforeStatus = $form->model()->status;
             if ($this->beforeStatus == ApplySchoolStatusEnum::STATUS_PASS && $this->beforeStatus != $form->status) {
                 $error = new MessageBag([
+                    'title'   => '警告',
                     'message' => '已通过的申请单不能再更改状态',
                 ]);
 
@@ -128,7 +131,15 @@ class ApplySchoolController extends AdminController
         });
         $form->saved(function (Form $form) {
             if ($this->beforeStatus != $form->status && $form->status == ApplySchoolStatusEnum::STATUS_PASS) {
-                app(AdminUserService::class)->teacherToAdmin($form->teacher_id);
+                DB::beginTransaction();
+
+                try {
+                    app(ApplySchoolService::class)->afterSavedHandle($form->model());
+                    DB::commit();
+                } catch (Exception $e) {
+                    app('log')->error('更改申请单异常: ' . $e->getMessage());
+                    DB::rollBack();
+                }
             }
         });
         return $form;
