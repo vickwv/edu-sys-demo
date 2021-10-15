@@ -52,8 +52,9 @@ class TeacherInviteService
                 'status'     => self::STATUS_INIT,
             ]);
         }
+
         if ($invite->status == self::STATUS_SUCCESS) {
-            return true;
+            throw new BusinessException("邀请的用户已经注册");
         }
 
         $token = uniqid("activate_", true);
@@ -69,7 +70,7 @@ class TeacherInviteService
             $invite->save();
         }
 
-        return true;
+        return $url;
     }
 
     /**
