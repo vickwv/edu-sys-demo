@@ -29,7 +29,7 @@ class TeacherController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('email', __('邮箱'));
         $grid->column('name', __('名称'));
-        $grid->column('sex', __('性别'));
+        $grid->column('sex', __('性别'))->using([1 => '男', 2=> '女']);
         $grid->column('age', __('年龄'));
         $grid->column('created_at', __('创建时间'));
         $grid->column('updated_at', __('更新时间'));
@@ -52,7 +52,7 @@ class TeacherController extends AdminController
         $show->field('name', __('名称'));
         $show->field('sex', __('性别'));
         $show->field('age', __('年龄'));
-        $show->field('line_id', __('Line'));
+        $show->field('line_id', __('LineID'));
         $show->field('created_at', __('创建时间'));
         $show->field('updated_at', __('更新时间'));
 
