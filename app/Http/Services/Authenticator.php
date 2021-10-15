@@ -52,7 +52,7 @@ class Authenticator
             return null;
         }
 
-        if (! $user->status == GlobalEnum::NO) {
+        if ($user->status == GlobalEnum::NO) {
             throw new BusinessException("账户已经被禁用");
         }
 
