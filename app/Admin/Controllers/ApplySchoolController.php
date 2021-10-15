@@ -36,7 +36,7 @@ class ApplySchoolController extends AdminController
         $grid = new Grid(new ApplySchoolModel);
 
         $grid->column('id', __('申请单id'));
-        $grid->column('teacher_id', __('老师id'))->using($this->getTeacherMap());
+        $grid->column('teacher_id', __('老师名称'))->using($this->getTeacherMap());
         $grid->column('school_name', __('学校名称'));
         $grid->column('school_province', __('学校省份'));
         $grid->column('school_city', __('学校城市'));
@@ -61,7 +61,7 @@ class ApplySchoolController extends AdminController
         $show = new Show(ApplySchoolModel::findOrFail($id));
 
         $show->field('id', __('申请单id'));
-        $show->field('teacher_id', __('老师id'));
+        $show->field('teacher_id', __('老师名称'))->using($this->getTeacherMap());
         $show->field('school_name', __('学校名称'));
         $show->field('school_province', __('学校省份'));
         $show->field('school_city', __('学校城市'));
