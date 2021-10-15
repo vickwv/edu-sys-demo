@@ -62,7 +62,7 @@ class AuthService
     public function lineCallback(LineLoginRequest $request) {
         $login = new Login(env('CHANNEL_ID'), env("CHANNEL_SECRET"));
         try {
-            $user = $login->requestToken($request->input('code'));
+            $user = $login->requestToken($request->input('code'), url("api/line/callback"));
             $userId = $user->getProfile()->userId;
             if (! empty($userId)) {
                 $model = config('auth.providers.'.$request->provider.'.model');
