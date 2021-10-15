@@ -32,6 +32,7 @@ class TeacherController extends AdminController
         $grid->column('name', __('名称'));
         $grid->column('sex', __('性别'))->using([1 => '男', 2=> '女']);
         $grid->column('age', __('年龄'));
+        $grid->column('status', __('状态'))->using([1 => '正常', 0 => '禁用']);
         $grid->column('created_at', __('创建时间'));
         $grid->column('updated_at', __('更新时间'));
 
@@ -54,6 +55,7 @@ class TeacherController extends AdminController
         $show->field('sex', __('性别'));
         $show->field('age', __('年龄'));
         $show->field('line_id', __('LineID'));
+        $show->field('status', __('状态'))->using([1 => '正常', 0 => '禁用']);
         $show->field('created_at', __('创建时间'));
         $show->field('updated_at', __('更新时间'));
 
@@ -82,6 +84,10 @@ class TeacherController extends AdminController
         ]);
         $form->radio('sex', __('性别'))->options([1 => '男', 2=> '女'])->default(0)->rules('required|in:1,2', [
             'required' => '请选择性别',
+        ]);
+
+        $form->radio('status', __('状态'))->options([1 => '正常', 0 => '禁用'])->default(0)->rules('required|in:1,0', [
+            'required' => '请选择状态',
         ]);
         $form->number('age', __('年龄'))->default(0);
 
