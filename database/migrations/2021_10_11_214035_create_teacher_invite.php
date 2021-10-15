@@ -13,7 +13,7 @@ class CreateTeacherInvite extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('teacher_follow')) {
+        if (!Schema::hasTable('teacher_invite')) {
             Schema::create('teacher_invite', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer("teacher_id")->comment("老师id")->index();
