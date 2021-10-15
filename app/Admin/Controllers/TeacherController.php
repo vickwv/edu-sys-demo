@@ -29,7 +29,6 @@ class TeacherController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('email', __('邮箱'));
         $grid->column('name', __('名称'));
-        $grid->column('role', __('Role'));
         $grid->column('sex', __('性别'));
         $grid->column('age', __('年龄'));
         $grid->column('created_at', __('创建时间'));
@@ -52,7 +51,6 @@ class TeacherController extends AdminController
         $show->field('role', __('Role'));
         $show->field('email', __('邮箱'));
         $show->field('name', __('名称'));
-        $show->field('role', __('Role'));
         $show->field('sex', __('性别'));
         $show->field('age', __('年龄'));
         $show->field('created_at', __('创建时间'));

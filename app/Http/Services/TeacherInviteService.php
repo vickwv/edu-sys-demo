@@ -100,7 +100,6 @@ class TeacherInviteService
             app(TeacherService::class)->registerTeacher([
                 'email'    => $invite->email,
                 'name'     => 'user_' . str_random(10),
-                'role'     => RoleEnum::ROLE_TEACHER,
                 'password' => $password,
             ]);
         } catch (BusinessException $e) {
