@@ -1,5 +1,6 @@
 <?php
 $dbopts = parse_url(env('DATABASE_URL'));
+$redis = parse_url(env('REDIS_URL'));
 return [
 
     /*
@@ -109,9 +110,9 @@ return [
         'client' => 'predis',
 
         'default' => [
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', 6379),
+            'host' => $redis['host'],
+            'password' => $redis['pass'],
+            'port' => $redis['port'],
             'database' => 0,
         ],
 
