@@ -6,6 +6,7 @@ namespace App\Admin\Services;
 use App\Model\TeacherModel;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Auth\Database\Role;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -35,8 +36,8 @@ class AdminUserService
             }
             DB::commit();
 
-        } catch (\Exception $e) {
-            dd($e);
+        } catch (Exception $e) {
+            app('log')->error('老师变成管理员失败: ' . $e->getMessage());
             DB::rollBack();
         }
     }
