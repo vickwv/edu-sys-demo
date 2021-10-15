@@ -75,6 +75,7 @@ class AuthService
             return false;
         } catch (Exception $e) {
             app('log')->error("line 回调失败: " . $e->getMessage());
+            dd($e);
             return false;
         }
     }
