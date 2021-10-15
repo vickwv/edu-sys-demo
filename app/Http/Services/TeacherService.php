@@ -21,7 +21,7 @@ class TeacherService
      * @author: stevenv
      * @date  : 2021-10-10
      */
-    public function registerTeacher(array $params) {
+    public function registerTeacher(array $params) : array {
         $teacherModel = app(TeacherModel::class);
         $isExist = $teacherModel->where('email', $params['email'])->exists();
         if ($isExist) {

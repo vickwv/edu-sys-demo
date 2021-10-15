@@ -31,6 +31,7 @@ class TeacherInviteService
      * @param int $teacherId
      * @param string $email
      * @return string
+     * @throws BusinessException
      * @author: wangwei
      * @date: 2021-10-12
      */
@@ -84,7 +85,7 @@ class TeacherInviteService
      * @author: wangwei
      * @date  : 2021-10-12
      */
-    public function accept(string $token): array{
+    public function accept(string $token): array {
         $key = RedisKeyEnum::TEACHER_INVITE_TOKEN . $token;
         $inviteId = Redis::get($key);
         if (empty($inviteId)) {
