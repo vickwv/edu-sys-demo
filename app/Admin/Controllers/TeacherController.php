@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Hashing\BcryptHasher;
 
 class TeacherController extends AdminController
 {
@@ -75,7 +76,7 @@ class TeacherController extends AdminController
         $form->text('name', __('名称'))->rules('required|string', [
             'required' => '请填写名称',
         ]);
-        $form->password('password', __('密码'))->rules('nullable|string|min:8', [
+        $form->password('password', __('密码'))->rules('required|string|min:8', [
             'required' => '请填写密码',
             'min'      => '密码至少8位',
         ]);
@@ -83,9 +84,11 @@ class TeacherController extends AdminController
             'required' => '请选择性别',
         ]);
         $form->number('age', __('年龄'))->default(0);
+
         $form->saving(function (Form $form) {
             $form->password = bcrypt($form->password);
         });
+
         return $form;
     }
 }

@@ -94,7 +94,7 @@ class StudentController extends AdminController
         $form->text('name', __('名称'))->rules('required|string', [
             'required' => '请填写名称',
         ]);
-        $form->password('password', __('密码'))->rules('nullable|string|min:8', [
+        $form->password('password', __('密码'))->rules('required|string|min:8', [
             'required' => '请填写密码',
             'min'      => '密码至少8位',
         ]);
