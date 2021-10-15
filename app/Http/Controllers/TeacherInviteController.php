@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\BusinessException;
 use App\Http\Requests\AcceptInviteRequest;
 use App\Http\Requests\InviteTeacherRequest;
 use App\Http\Services\TeacherInviteService;
@@ -46,6 +47,9 @@ class TeacherInviteController extends Controller
      *  接受邀请
      * </p>
      *
+     * @param AcceptInviteRequest $request
+     * @return JsonResponse
+     * @throws BusinessException
      * @author: wangwei
      * @date: 2021-10-15
      */
