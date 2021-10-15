@@ -17,12 +17,10 @@ Route::get('line/callback', 'AuthController@lineCallback'); // line回调
 
 Route::middleware('auth:teacher')->group(function () {
    Route::post('apply_school/create', 'ApplySchoolController@create');
-   Route::group(['prefix' => 'teacher_invite'], function() {
-        Route::get('invite', 'TeacherInviteController@invite'); // 邀请老师
-   });
+    Route::get('teacher_invite/invite', 'TeacherInviteController@invite'); // 邀请老师
 });
 
 Route::middleware('auth:student')->group(function () {
     Route::post('student/follow', 'StudentController@followTeacher');
-    Route::post('student/follow_teacher/list', 'StudentController@getFollowTeachers');
+    Route::get('student/follow_teacher/list', 'StudentController@getFollowTeachers');
 });

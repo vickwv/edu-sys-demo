@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\LoginFailException;
 use App\Http\Requests\LineLoginRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Services\AuthService;
@@ -17,6 +18,15 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
+    /**
+     * 功能：登陆逻辑
+     *
+     * @author: stevenv
+     * @date  : 2021-10-15
+     * @param LoginRequest $request
+     * @return JsonResponse
+     * @throws LoginFailException
+     */
     public function login(LoginRequest $request) {
         $result = $this->authService->login($request);
 

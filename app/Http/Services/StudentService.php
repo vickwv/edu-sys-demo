@@ -46,7 +46,7 @@ class StudentService
         $student = Auth::user();
         $teachers = $student->teachers()->where('is_follow', GlobalEnum::YES)->get();
         foreach ($teachers as $teacher) {
-            unset($teacher->created_at, $teacher->created_at, $teacher->pivot, $teacher->email);
+            unset($teacher->created_at, $teacher->updated_at, $teacher->pivot, $teacher->email);
         }
 
         return $teachers->toArray();
