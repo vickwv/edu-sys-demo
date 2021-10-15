@@ -6,6 +6,7 @@ namespace App\Http\Services;
 
 use App\Exceptions\BusinessException;
 use App\Exceptions\RegisterFailException;
+use App\Http\Constants\GlobalEnum;
 use App\Model\TeacherModel;
 
 class TeacherService
@@ -28,7 +29,7 @@ class TeacherService
         }
 
         $params['password'] = bcrypt($params['password']);
-
+        $params['status'] = GlobalEnum::YES;
         $teacher = $teacher->create($params);
         if (empty($teacher)) {
             throw new RegisterFailException();
