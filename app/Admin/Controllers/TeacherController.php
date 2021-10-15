@@ -48,7 +48,6 @@ class TeacherController extends AdminController
         $show = new Show(TeacherModel::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('role', __('Role'));
         $show->field('email', __('邮箱'));
         $show->field('name', __('名称'));
         $show->field('sex', __('性别'));
