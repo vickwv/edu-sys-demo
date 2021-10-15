@@ -10,6 +10,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\MessageBag;
 
 class ApplySchoolController extends AdminController
 {
@@ -110,14 +111,20 @@ class ApplySchoolController extends AdminController
         //状态：0待审核,1通过,2拒绝
         $form->radio('status', __('状态'))
             ->options(ApplySchoolStatusEnum::getStatsDesc())
-            ->rules('required', ['required' => '请选择状态'])
-            ->value(ApplySchoolStatusEnum::STATUS_PASS)->disable();
+            ->rules('required', ['required' => '请选择状态']);
         $form->text('reason', __('拒绝原因'))->rules('nullable|string', [
-            'string' => '请输入字符串'
+            'string' => '请输入文字'
         ]);
 
         $form->saving(function (Form $form) {
             $this->beforeStatus = $form->model()->status;
+            if ($this->beforeStatus == ApplySchoolStatusEnum::STATUS_PASS && $this->beforeStatus != $form->status) {
+                $error = new MessageBag([
+                    'message' => '已通过的申请单不能再更改状态',
+                ]);
+
+                return back()->with(compact('error'));
+            }
         });
         $form->saved(function (Form $form) {
             if ($this->beforeStatus != $form->status && $form->status == ApplySchoolStatusEnum::STATUS_PASS) {
