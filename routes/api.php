@@ -10,7 +10,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('signup', 'TeacherController@register'); // 注册
+Route::post('teacher/signup', 'TeacherController@register'); // 注册
 Route::post('login', 'AuthController@login'); // 登陆
 Route::get('teacher_invite/accept', 'TeacherInviteController@accept'); // 接受邀请
 Route::get('line/callback', 'AuthController@lineCallback'); // line回调
