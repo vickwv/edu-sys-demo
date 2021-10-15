@@ -19,7 +19,7 @@ class TeacherModel extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'sex', 'age',
+        'name', 'email', 'password', 'sex', 'age', 'status',
     ];
 
     /**
