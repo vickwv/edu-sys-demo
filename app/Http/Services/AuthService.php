@@ -6,8 +6,16 @@ namespace App\Http\Services;
 use App\Exceptions\LoginFailException;
 use App\Http\Requests\LineLoginRequest;
 use App\Http\Requests\LoginRequest;
-use TyperEJ\LineLogin\Login;
+use Exception;
 
+/**
+ * <p>
+ *  用户认证
+ * </p>
+ *
+ * @author: wangwei
+ * @date: 2021-10-15
+ */
 class AuthService
 {
     /**
@@ -61,7 +69,7 @@ class AuthService
                 return true;
             }
             return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             app('log')->error("line 回调失败: " . $e->getMessage());
             return false;
         }
