@@ -34,7 +34,7 @@ class TeacherInviteService
      * @author: wangwei
      * @date: 2021-10-12
      */
-    public function invite(int $teacherId, string $email): bool {
+    public function invite(int $teacherId, string $email): string {
         $invite = TeacherInviteModel::where([
             'teacher_id' => $teacherId,
             'email'      => $email,
