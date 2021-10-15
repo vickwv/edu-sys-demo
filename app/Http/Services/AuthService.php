@@ -41,12 +41,14 @@ class AuthService
 
         $redirectUrl = url("api/line/callback") . '?' . http_build_query([
                 'id' => $user->id,
-                'provider' => $request->provider,
-                'state' => str_random(9),
+                'provider' => $request->provider
             ]);
         return [
             'access_token' => 'Bearer ' . $token,
-            'lineLoginUrl' => $login->generateLoginUrl(['redirect_uri' => $redirectUrl]),
+            'lineLoginUrl' => $login->generateLoginUrl([
+                'redirect_uri' => $redirectUrl,
+                'state' => str_random(9),
+            ]),
         ];
     }
 
