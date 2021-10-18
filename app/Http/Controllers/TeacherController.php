@@ -36,7 +36,6 @@ class TeacherController extends Controller
      * @date  : 2021-10-10
      */
     public function register(TeacherRegisterRequest $request) {
-        $request->validate();
         return $this->success('success', $this->teacherService->registerTeacher($request->validated()));
     }
 }
