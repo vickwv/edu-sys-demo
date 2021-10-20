@@ -14,8 +14,7 @@
         "league/oauth2-client": "^2.6",
         "paragonie/random_compat": "2.*",
         "predis/predis": "^1.1",
-        "smartins/passport-multiauth": "~3.0",
-        "typerej/line-login": "dev-master"
+        "smartins/passport-multiauth": "~3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
