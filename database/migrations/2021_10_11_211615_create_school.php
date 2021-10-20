@@ -21,7 +21,6 @@ class CreateSchool extends Migration
                 $table->string("city", 16)->nullable(false)->default("")->comment("城市");
                 $table->string("area", 16)->nullable(false)->default("")->comment("地区");
                 $table->string("address", 32)->nullable(false)->default("")->comment("详细地址");
-                $table->tinyInteger("status")->comment("状态: 1正常,0禁用");
                 $table->timestamps();
             });
         }

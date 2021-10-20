@@ -6,6 +6,7 @@ use App\Exceptions\BusinessException;
 use App\Exceptions\RegisterFailException;
 use App\Http\Requests\TeacherRegisterRequest;
 use App\Http\Services\TeacherService;
+use Illuminate\Http\JsonResponse;
 
 /**
  * 功能：老师相关接口
@@ -29,12 +30,12 @@ class TeacherController extends Controller
      * 功能：注册
      *
      * @param TeacherRegisterRequest $request
+     * @return JsonResponse
      * @throws RegisterFailException|BusinessException
      * @author: stevenv
      * @date  : 2021-10-10
      */
     public function register(TeacherRegisterRequest $request) {
-        $request->validate();
         return $this->success('success', $this->teacherService->registerTeacher($request->validated()));
     }
 }

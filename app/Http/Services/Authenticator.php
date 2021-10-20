@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use App\Exceptions\BusinessException;
+use App\Http\Constants\GlobalEnum;
 use Illuminate\Hashing\BcryptHasher;
 use RuntimeException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +50,10 @@ class Authenticator
 
         if (! $this->hasher->check($password, $user->getAuthPassword())) {
             return null;
+        }
+
+        if ($user->status == GlobalEnum::NO) {
+            throw new BusinessException("账户已经被禁用");
         }
 
         return $user;

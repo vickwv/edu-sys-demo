@@ -45,10 +45,14 @@ class StudentService
     public function getFollowTeachers() {
         $student = Auth::user();
         $teachers = $student->teachers()->where('is_follow', GlobalEnum::YES)->get();
+        $result = [];
         foreach ($teachers as $teacher) {
-            unset($teacher->created_at, $teacher->created_at, $teacher->pivot, $teacher->email);
+            $result[] = [
+              'teacher_id' => $teacher->id,
+              'teacher_name' => $teacher->name,
+            ];
         }
 
-        return $teachers->toArray();
+        return $result;
     }
 }

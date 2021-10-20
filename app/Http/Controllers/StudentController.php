@@ -39,6 +39,12 @@ class StudentController extends Controller
         return $this->success('success', ['is_follow' => $isFollow]);
     }
 
+    /**
+     * 功能：获取关注的老师
+     *
+     * @author: stevenv
+     * @date: 2021-10-15
+     **/
     public function getFollowTeachers() {
         return $this->success('success', $this->studentService->getFollowTeachers());
     }
