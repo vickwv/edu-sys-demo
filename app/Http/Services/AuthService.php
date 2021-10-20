@@ -37,22 +37,21 @@ class AuthService
         }
 
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        $login = new Login(env('CHANNEL_ID'));
-
-        $redirectUrl = $this->getLineCallback([
+        $redirectUrl = $this->generateLineCallback([
             'id' => $user->id,
             'provider' => $request->provider
         ]);
+        $lineOauthService = new LineOauthService($redirectUrl);
+
         return [
             'access_token' => 'Bearer ' . $token,
-            'lineLoginUrl' => $login->generateLoginUrl([
-                'redirect_uri' => $redirectUrl,
+            'lineLoginUrl' => $lineOauthService->generateLoginUrl([
                 'state' => str_random(9),
             ]),
         ];
     }
 
-    protected function getLineCallback(array $params) {
+    protected function generateLineCallback(array $params) {
         return url("api/line/callback") . '?' . http_build_query($params);
     }
 
@@ -65,13 +64,15 @@ class AuthService
      * @date  : 2021-10-14
      */
     public function lineCallback(LineLoginRequest $request) {
-        $login = new Login(env('CHANNEL_ID'), env("CHANNEL_SECRET"));
+        $redirectUrl = $this->generateLineCallback([
+            'id'       => $request->id,
+            'provider' => $request->provider
+        ]);
+        $lineOauthService = new LineOauthService($redirectUrl);
         try {
-            $user = $login->requestToken($request->input('code'), $this->getLineCallback([
-                'id'       => $request->id,
-                'provider' => $request->provider
-            ]));
-            $userId = $user->getProfile()->userId;
+            $token = $lineOauthService->getAccessToken(['code' => $request->code]);
+            $user = $lineOauthService->getUser($token);
+            $userId = $user->getId();
             if (! empty($userId)) {
                 $model = config('auth.providers.'.$request->provider.'.model');
                 (new $model)->where('id', $request->id)->update([
@@ -83,7 +84,8 @@ class AuthService
             return false;
         } catch (Exception $e) {
             app('log')->error("line 回调失败: " . $e->getMessage());
-            return false;
+//            return false;
+            throw $e;
         }
     }
 }

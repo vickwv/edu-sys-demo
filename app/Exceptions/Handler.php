@@ -90,12 +90,12 @@ class Handler extends ExceptionHandler
             ]);
         }
 
-        if ($exception instanceof \Throwable || $exception instanceof Exception) {
-            return response()->json([
-                'code' => -500,
-                'msg'  => $exception->getMessage(),
-            ]);
-        }
+//        if ($exception instanceof \Throwable || $exception instanceof Exception) {
+//            return response()->json([
+//                'code' => -500,
+//                'msg'  => $exception->getMessage(),
+//            ]);
+//        }
         return parent::render($request, $exception);
     }
 }
