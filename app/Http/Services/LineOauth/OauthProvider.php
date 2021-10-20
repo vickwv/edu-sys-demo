@@ -52,6 +52,16 @@ class OauthProvider extends AbstractProvider
         }
     }
 
+    protected function getDefaultHeaders()
+    {
+        return ['Content-Type' => 'application/json'];
+    }
+
+    protected function getAuthorizationHeaders($token = null)
+    {
+        return ['Authorization' => 'Bearer ' .  $token];
+    }
+
     protected function createResourceOwner(array $response, AccessToken $token)
     {
          return new LineResourceOwner($response);
