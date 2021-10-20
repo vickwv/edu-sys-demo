@@ -7,6 +7,14 @@ use App\Http\Services\LineOauth\OauthProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 
+/**
+ * <p>
+ *  Line 认证业务逻辑
+ * </p>
+ *
+ * @author: wangwei
+ * @date: 2021-10-20
+ */
 class LineOauthService
 {
     /** @var OauthProvider $provider */
@@ -32,9 +40,8 @@ class LineOauthService
         try {
             return $this->provider->getAccessToken($grant, $options);
         } catch (IdentityProviderException $e) {
-            app('log')->error('Line认证出错:' . $e->getMessage());
-
-            throw $e;
+            app('log')->error('Line获取AccessToken出错:' . $e->getMessage());
+            return null;
         }
     }
 }

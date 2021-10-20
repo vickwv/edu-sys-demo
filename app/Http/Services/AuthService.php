@@ -7,7 +7,6 @@ use App\Exceptions\LoginFailException;
 use App\Http\Requests\LineLoginRequest;
 use App\Http\Requests\LoginRequest;
 use Exception;
-use TyperEJ\LineLogin\Login;
 
 /**
  * <p>
@@ -71,21 +70,23 @@ class AuthService
         $lineOauthService = new LineOauthService($redirectUrl);
         try {
             $token = $lineOauthService->getAccessToken(['code' => $request->code]);
-            $user = $lineOauthService->getUser($token);
-            $userId = $user->getId();
-            if (! empty($userId)) {
-                $model = config('auth.providers.'.$request->provider.'.model');
-                (new $model)->where('id', $request->id)->update([
-                    'line_id' => $userId,
-                ]);
+            if (! empty($token)) {
+                $user = $lineOauthService->getUser($token);
+                $userId = $user->getId();
+                if (! empty($userId)) {
+                    $model = config('auth.providers.'.$request->provider.'.model');
+                    (new $model)->where('id', $request->id)->update([
+                        'line_id' => $userId,
+                    ]);
 
-                return true;
+                    return true;
+                }
             }
+
             return false;
         } catch (Exception $e) {
             app('log')->error("line 回调失败: " . $e->getMessage());
-//            return false;
-            throw $e;
+            return false;
         }
     }
 }

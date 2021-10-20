@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Services\LineOauth;
 
 use League\OAuth2\Client\Provider\AbstractProvider;

@@ -78,8 +78,7 @@ class Handler extends ExceptionHandler
             app('log')->error("数据库异常:" . $exception->getMessage());
             return response()->json([
                 'code' => -2,
-                //'msg'  => "服务器开了小差",
-                'msg'  => $exception->getMessage(),
+                'msg'  => "服务器开了小差",
             ]);
         }
 
@@ -90,12 +89,12 @@ class Handler extends ExceptionHandler
             ]);
         }
 
-//        if ($exception instanceof \Throwable || $exception instanceof Exception) {
-//            return response()->json([
-//                'code' => -500,
-//                'msg'  => $exception->getMessage(),
-//            ]);
-//        }
+        if ($exception instanceof \Throwable || $exception instanceof Exception) {
+            return response()->json([
+                'code' => -500,
+                'msg'  => $exception->getMessage(),
+            ]);
+        }
         return parent::render($request, $exception);
     }
 }
