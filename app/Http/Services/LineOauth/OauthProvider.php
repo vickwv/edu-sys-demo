@@ -7,6 +7,14 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * <p>
+ *  配置或处理认证逻辑，接口逻辑
+ * </p>
+ *
+ * @author: wangwei
+ * @date: 2021-10-20
+ */
 class OauthProvider extends AbstractProvider
 {
     /**
