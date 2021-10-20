@@ -33,7 +33,8 @@ class LineOauthService
             return $this->provider->getAccessToken($grant, $options);
         } catch (IdentityProviderException $e) {
             app('log')->error('Line认证出错:' . $e->getMessage());
-            return null;
+
+            throw $e;
         }
     }
 }
