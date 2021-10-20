@@ -1,6 +1,7 @@
 <?php
 $dbopts = parse_url(env('DATABASE_URL'));
 $redis = parse_url(env('REDIS_URL'));
+$isProduct = env('APP_ENV') == 'production';
 return [
 
     /*
@@ -57,11 +58,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $dbopts['host'],
-            'port' => $dbopts['port'],
-            'database' => ltrim($dbopts["path"],'/'),
-            'username' => $dbopts['user'],
-            'password' => $dbopts['pass'],
+            'host' => $isProduct ? $dbopts['host'] : env('DB_HOST', '127.0.0.1'),
+            'port' => $isProduct ? $dbopts['port'] : env('DB_PORT', '5432'),
+            'database' => $isProduct ? ltrim($dbopts["path"],'/') : env('DB_DATABASE', 'forge'),
+            'username' => $isProduct ? $dbopts['user'] : env('DB_USERNAME', 'forge'),
+            'password' => $isProduct ? $dbopts['pass'] : env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
@@ -110,9 +111,9 @@ return [
         'client' => 'predis',
 
         'default' => [
-            'host' => $redis['host'],
-            'password' => $redis['pass'],
-            'port' => $redis['port'],
+            'host' => $isProduct ? $redis['host'] : env('REDIS_HOST', '127.0.0.1'),
+            'password' => $isProduct ?$redis['pass'] : env('REDIS_PASSWORD', null),
+            'port' => $isProduct ? $redis['port'] : env('REDIS_PORT', 6379),
             'database' => 0,
         ],
 
