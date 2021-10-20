@@ -2,17 +2,24 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 
-class SchoolModel extends Authenticatable
+class TeacherInvite extends Model
 {
     use Notifiable, HasMultiAuthApiTokens;
 
-    protected $table = 'school';
+    protected $table = 'teacher_invite';
 
-    protected $guarded = [];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'teacher_id', 'email', 'status', 'is_sent'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.

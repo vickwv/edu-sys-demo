@@ -4,8 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Services\AdminUserService;
 use App\Http\Constants\ApplySchoolStatusEnum;
-use App\Model\ApplySchoolModel;
-use App\Model\TeacherModel;
+use App\Model\ApplySchool;
+use App\Model\Teacher;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -24,7 +24,7 @@ class ApplySchoolController extends AdminController
     protected $title = '申请单(学校)管理';
 
     protected function getTeacherMap() {
-        return TeacherModel::all()->pluck('name', 'id')->all();
+        return Teacher::all()->pluck('name', 'id')->all();
     }
 
     /**
@@ -34,7 +34,7 @@ class ApplySchoolController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new ApplySchoolModel);
+        $grid = new Grid(new ApplySchool);
 
         $grid->column('id', __('申请单id'));
         $grid->column('teacher_id', __('老师名称'))->using($this->getTeacherMap());
@@ -59,7 +59,7 @@ class ApplySchoolController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(ApplySchoolModel::findOrFail($id));
+        $show = new Show(ApplySchool::findOrFail($id));
 
         $show->field('id', __('申请单id'));
         $show->field('teacher_id', __('老师名称'))->using($this->getTeacherMap());
@@ -83,7 +83,7 @@ class ApplySchoolController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new ApplySchoolModel);
+        $form = new Form(new ApplySchool);
         $form->display('id', __('申请单id'));
         $form->select('teacher_id', __('老师id'))
             ->options($this->getTeacherMap())

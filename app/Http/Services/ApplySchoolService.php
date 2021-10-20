@@ -10,7 +10,7 @@
 namespace App\Http\Services;
 
 use App\Exceptions\BusinessException;
-use App\Model\ApplySchoolModel;
+use App\Model\ApplySchool;
 use Illuminate\Support\Facades\Auth;
 
 class ApplySchoolService
@@ -23,14 +23,14 @@ class ApplySchoolService
             $data['school_' . $k] = $v;
         }
 
-        $exist = ApplySchoolModel::where([
+        $exist = ApplySchool::where([
             'teacher_id'  => $data['teacher_id'],
             'school_name' => $data['school_name'],
         ])->exists();
         if ($exist) {
             throw new BusinessException("请不要重复申请");
         }
-        $apply = ApplySchoolModel::create($data);
+        $apply = ApplySchool::create($data);
         if (empty($apply)) {
             throw new BusinessException("创建申请单失败");
         }

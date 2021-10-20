@@ -4,8 +4,8 @@ namespace App\Http\Services;
 
 use App\Exceptions\BusinessException;
 use App\Http\Constants\GlobalEnum;
-use App\Model\TeacherFollowModel;
-use App\Model\TeacherModel;
+use App\Model\TeacherFollow;
+use App\Model\Teacher;
 use Illuminate\Support\Facades\Auth;
 
 class StudentService
@@ -22,13 +22,13 @@ class StudentService
      * @throws BusinessException
      */
     public function followTeacher(int $teacherId, int $isFollow) {
-        $teacher = TeacherModel::find($teacherId);
+        $teacher = Teacher::find($teacherId);
         if (empty($teacher)) {
             throw new BusinessException("您关注的老师不存在");
         }
 
         $student = Auth::user();
-        $follow = TeacherFollowModel::updateOrCreate([
+        $follow = TeacherFollow::updateOrCreate([
             'teacher_id' => $teacherId,
             'student_id' => $student->id,
         ], ['is_follow'  => $isFollow]);

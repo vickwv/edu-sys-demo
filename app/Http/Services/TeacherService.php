@@ -7,7 +7,7 @@ namespace App\Http\Services;
 use App\Exceptions\BusinessException;
 use App\Exceptions\RegisterFailException;
 use App\Http\Constants\GlobalEnum;
-use App\Model\TeacherModel;
+use App\Model\Teacher;
 
 class TeacherService
 {
@@ -22,7 +22,7 @@ class TeacherService
      * @date  : 2021-10-10
      */
     public function registerTeacher(array $params) : array {
-        $teacherModel = app(TeacherModel::class);
+        $teacherModel = app(Teacher::class);
         $isExist = $teacherModel->where('email', $params['email'])->exists();
         if ($isExist) {
             throw new BusinessException("该邮箱已经被注册");

@@ -2,8 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\SchoolModel;
-use App\Model\StudentModel;
+use App\Model\School;
+use App\Model\Student;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -20,7 +20,7 @@ class StudentController extends AdminController
     protected $title = '学生管理';
 
     protected function getSchoolMap() {
-        $schools = SchoolModel::select('id', 'name')->get();
+        $schools = School::select('id', 'name')->get();
         $schoolMap = [];
         if($schools->isNotEmpty()) {
             $schoolMap = $schools->mapWithKeys(function ($item) {
@@ -40,7 +40,7 @@ class StudentController extends AdminController
     {
         $schoolMap = $this->getSchoolMap();
         $schoolMap = ! empty($schoolMap) ? $schoolMap->toArray() : [];
-        $grid = new Grid(new StudentModel);
+        $grid = new Grid(new Student);
         $grid->column('id', __('学生Id'));
         $grid->column('school_id', __('学校'))->using($schoolMap);
         $grid->column('email', __('邮箱'));
@@ -62,7 +62,7 @@ class StudentController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(StudentModel::findOrFail($id));
+        $show = new Show(Student::findOrFail($id));
         $schoolMap = $this->getSchoolMap();
         $schoolMap = ! empty($schoolMap) ? $schoolMap->toArray() : [];
         $show->field('id', __('学生Id'));
@@ -85,7 +85,7 @@ class StudentController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new StudentModel);
+        $form = new Form(new Student);
         $form->select('school_id', __('学校'))->options($this->getSchoolMap())->rules('required', [
             'required' => '请选择学校',
         ]);

@@ -3,7 +3,7 @@
 
 namespace App\Admin\Services;
 
-use App\Model\TeacherModel;
+use App\Model\Teacher;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Auth\Database\Role;
 use Exception;
@@ -20,7 +20,7 @@ class AdminUserService
     public function teacherToAdmin(int $teacherId) {
         DB::beginTransaction();
         try {
-            $teacher = TeacherModel::find($teacherId);
+            $teacher = Teacher::find($teacherId);
             if (! empty($teacher)) {
                 $admin = Administrator::where('username', $teacher->email)->first();
                 if (empty($admin)) {

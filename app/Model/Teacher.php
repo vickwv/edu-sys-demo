@@ -7,11 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use SMartins\PassportMultiauth\HasMultiAuthApiTokens;
 
-class StudentModel extends Authenticatable
+class Teacher extends Authenticatable
 {
     use Notifiable, HasMultiAuthApiTokens;
 
-    protected $table = 'student';
+    protected $table = 'teacher';
 
     /**
      * The attributes that are mass assignable.
@@ -31,8 +31,7 @@ class StudentModel extends Authenticatable
         'password',
     ];
 
-    public function teachers() : BelongsToMany
-    {
-        return $this->belongsToMany(TeacherModel::class, 'teacher_follow', 'student_id', 'teacher_id');
+    public function students() : BelongsToMany {
+        return $this->belongsToMany(Student::class, TeacherInvite::class, 'teacher_id', 'student_id');
     }
 }

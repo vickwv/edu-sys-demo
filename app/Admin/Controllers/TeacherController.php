@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\TeacherModel;
+use App\Model\Teacher;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -24,7 +24,7 @@ class TeacherController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new TeacherModel);
+        $grid = new Grid(new Teacher);
 
         $grid->column('id', __('Id'));
         $grid->column('email', __('邮箱'));
@@ -45,7 +45,7 @@ class TeacherController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(TeacherModel::findOrFail($id));
+        $show = new Show(Teacher::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('email', __('邮箱'));
@@ -66,7 +66,7 @@ class TeacherController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new TeacherModel);
+        $form = new Form(new Teacher);
 
         $form->email('email', __('邮箱'))->rules('required|email', [
             'required' => '请填写邮箱',

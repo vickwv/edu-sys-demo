@@ -7,7 +7,7 @@ use App\Exceptions\BusinessException;
 use App\Http\Constants\GlobalEnum;
 use App\Http\Constants\RedisKeyEnum;
 use App\Http\Constants\RoleEnum;
-use App\Model\TeacherInviteModel;
+use App\Model\TeacherInvite;
 use Illuminate\Support\Facades\Redis;
 
 /**
@@ -36,7 +36,7 @@ class TeacherInviteService
      * @date: 2021-10-12
      */
     public function invite(int $teacherId, string $email): string {
-        $invite = TeacherInviteModel::where([
+        $invite = TeacherInvite::where([
             'teacher_id' => $teacherId,
             'email'      => $email,
         ])->first();
@@ -47,7 +47,7 @@ class TeacherInviteService
                 $invite->save();
             }
         } else {
-            $invite = TeacherInviteModel::create([
+            $invite = TeacherInvite::create([
                 'teacher_id' => $teacherId,
                 'email'      => $email,
                 'status'     => self::STATUS_INIT,
@@ -92,7 +92,7 @@ class TeacherInviteService
             throw new BusinessException("邀请已过期，请重新邀请");
         }
 
-        $invite = TeacherInviteModel::find($inviteId);
+        $invite = TeacherInvite::find($inviteId);
         if (empty($invite) || $invite->status == self::STATUS_EXPIRE) {
             throw new BusinessException("邀请已过期，请重新邀请");
         }

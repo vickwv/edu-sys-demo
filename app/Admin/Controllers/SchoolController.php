@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\SchoolModel;
+use App\Model\School;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -24,7 +24,7 @@ class SchoolController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new SchoolModel);
+        $grid = new Grid(new School);
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('名称'));
@@ -46,7 +46,7 @@ class SchoolController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(SchoolModel::findOrFail($id));
+        $show = new Show(School::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('name', __('名称'));
@@ -67,7 +67,7 @@ class SchoolController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new SchoolModel);
+        $form = new Form(new School);
         $form->text('name', __('名称'))->rules('required|string|max:20', [
             'max' => '最大20个字',
             'required' => '不能为空',
